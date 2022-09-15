@@ -25,9 +25,8 @@ const dataSlice = createSlice({
       state.cryptoArray = action.payload.data;
       state.cryptoArray.forEach((crypto) => {
         crypto.icon =
-          "https://cryptoicons.org/api/icon/" +
-          crypto.symbol.toLowerCase() +
-          "/200";
+          "https://coinicons-api.vercel.app/api/icon/" +
+          crypto.symbol.toLowerCase();
       });
       state.isLoading = false;
     },

@@ -6,11 +6,12 @@ export default function CryptoTable() {
   const { isLoading, cryptoArray } = useSelector((store) => store.cryptoData);
   if (isLoading) return <div>loading</div>;
   return (
-    <Table striped bordered hover size="sm">
+    <Table bordered hover size="sm">
       <thead>
         <tr>
           <th>Name</th>
-          <th>priceUsd</th>
+          <th>Price</th>
+          <th>24h%</th>
         </tr>
       </thead>
       <tbody>
