@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getCryptoData, } from "./redux/features/cryptoDataSlice";
+import CryptoTable from "./components/CryptoTable";
+import { getCryptoData } from "./redux/features/cryptoDataSlice";
+import "./App.css";
 
 function App() {
   const dispatch = useDispatch();
@@ -9,7 +10,11 @@ function App() {
     dispatch(getCryptoData());
   }, []);
 
-  return <div className="App">test</div>;
+  return (
+    <div className="App">
+      <CryptoTable />
+    </div>
+  );
 }
 
 export default App;

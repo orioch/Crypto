@@ -3,9 +3,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const pricingDataUrl = "https://api.coincap.io/v2/assets";
 const iconsUrl = "https://cryptoicons.org/api/icon/eth/200";
 const initialState = {
-  cryptoData: [],
+  cryptoArray: [],
   isLoading: false,
-  isIconsLoading: false,
 };
 
 export const getCryptoData = createAsyncThunk("crypto/getData", () => {
@@ -23,14 +22,13 @@ const dataSlice = createSlice({
       state.isLoading = true;
     },
     [getCryptoData.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.cryptoData = action.payload.data;
-      state.cryptoData.forEach((crypto) => {
+      state.cryptoArray = action.payload.data;
+      state.cryptoArray.forEach((crypto) => {
         crypto.icon =
-          "https://cryptoicons.org/api/icon/" +
-          crypto.symbol.toLowerCase() +
-          "/200";
+          "https://coinicons-api.vercel.app/api/icon/" +
+          crypto.symbol.toLowerCase();
       });
+      state.isLoading = false;
     },
   },
 });
