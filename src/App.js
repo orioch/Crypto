@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import List from "./components/List";
+import CryptoTable from "./components/CryptoTable";
 import { getCryptoData } from "./redux/features/cryptoDataSlice";
 import "./App.css";
 
@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className="App">
-      <List />
+      <CryptoTable />
     </div>
   );
 }
