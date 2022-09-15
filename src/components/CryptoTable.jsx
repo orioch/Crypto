@@ -14,6 +14,7 @@ export default function CryptoTable() {
           <th>Name</th>
           <th>Price</th>
           <th>24h%</th>
+          <th>chart</th>
         </tr>
       </thead>
       <tbody>
