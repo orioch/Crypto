@@ -4,7 +4,6 @@
 }
 
 .name-cell {
-  width: 40%;
   display: flex;
   align-items: center;
 }

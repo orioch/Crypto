@@ -3,8 +3,10 @@ import Table from "react-bootstrap/Table";
 import TableItem from "./TableItem";
 
 export default function CryptoTable() {
-  const { isLoading, cryptoArray } = useSelector((store) => store.cryptoData);
-  if (isLoading) return <div>loading</div>;
+  const { cryptoArray, itemsInPage, currentPage } = useSelector(
+    (store) => store.cryptoData
+  );
+
   return (
     <Table bordered hover size="sm">
       <thead>
@@ -15,10 +17,12 @@ export default function CryptoTable() {
         </tr>
       </thead>
       <tbody>
-        {cryptoArray.slice(0, 20).map((item) => {
-          if (item) return <TableItem key={item.id} itemData={item} />;
-          else return;
-        })}
+        {cryptoArray
+          .slice((currentPage - 1) * itemsInPage, currentPage * itemsInPage)
+          .map((item) => {
+            if (item) return <TableItem key={item.id} itemData={item} />;
+            else return;
+          })}
       </tbody>
     </Table>
   );

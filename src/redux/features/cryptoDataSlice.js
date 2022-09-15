@@ -1,13 +1,20 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
 
 const pricingDataUrl = "https://api.coincap.io/v2/assets";
-const iconsUrl = "https://cryptoicons.org/api/icon/eth/200";
 const initialState = {
   cryptoArray: [],
-  isLoading: false,
+  currentPage: 1,
+  itemsInPage: 15,
+  length: 0,
 };
 
 export const getCryptoData = createAsyncThunk("crypto/getData", () => {
+  return fetch(pricingDataUrl)
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
+});
+export const rerenderCryptoData = createAsyncThunk("crypto/getData", () => {
   return fetch(pricingDataUrl)
     .then((res) => res.json())
     .catch((err) => console.log(err));
@@ -16,21 +23,18 @@ export const getCryptoData = createAsyncThunk("crypto/getData", () => {
 const dataSlice = createSlice({
   name: "data",
   initialState,
-  reducers: {},
-  extraReducers: {
-    [getCryptoData.pending]: (state) => {
-      state.isLoading = true;
+  reducers: {
+    changeCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
     },
+  },
+  extraReducers: {
     [getCryptoData.fulfilled]: (state, action) => {
+      state.length = action.payload.data.length;
       state.cryptoArray = action.payload.data;
-      state.cryptoArray.forEach((crypto) => {
-        crypto.icon =
-          "https://coinicons-api.vercel.app/api/icon/" +
-          crypto.symbol.toLowerCase();
-      });
-      state.isLoading = false;
     },
   },
 });
 
+export const { changeCurrentPage } = dataSlice.actions;
 export default dataSlice.reducer;
