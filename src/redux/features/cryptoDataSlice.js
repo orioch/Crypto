@@ -13,11 +13,6 @@ export const getCryptoData = createAsyncThunk("crypto/getData", () => {
     .then((res) => res.json())
     .catch((err) => console.log(err));
 });
-export const getIcons = createAsyncThunk("crypto/getIcons", () => {
-  return fetch(iconsUrl, {mode: 'no-cors'})
-    .then((res) => res.json())
-    .catch((err) => console.log(err));
-});
 
 const dataSlice = createSlice({
   name: "data",
@@ -30,13 +25,12 @@ const dataSlice = createSlice({
     [getCryptoData.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.cryptoData = action.payload.data;
-    },
-    [getIcons.pending]: (state) => {
-      state.isIconsLoading = true;
-    },
-    [getIcons.fulfilled]: (state, action) => {
-      state.isIconsLoading = false;
-      console.log(action);
+      state.cryptoData.forEach((crypto) => {
+        crypto.icon =
+          "https://cryptoicons.org/api/icon/" +
+          crypto.symbol.toLowerCase() +
+          "/200";
+      });
     },
   },
 });
