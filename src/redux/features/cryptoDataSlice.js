@@ -5,6 +5,7 @@ const pricingDataUrl = "https://api.coincap.io/v2/assets";
 
 const initialState = {
   cryptoArray: [],
+  cryptoHistoryArray: {},
   currentPage: 1,
   itemsInPage: 15,
   length: 0,
@@ -37,13 +38,14 @@ const dataSlice = createSlice({
   extraReducers: {
     [getCryptoData.fulfilled]: (state, action) => {
       state.length = action.payload.data.length;
-      state.cryptoArray = action.payload.data;
+      let newCryptoArray = action.payload.data;
+      newCryptoArray.forEach((crypto) => {
+        crypto.history = state.cryptoHistoryArray[crypto.id];
+      });
+      state.cryptoArray = newCryptoArray;
     },
     [getCryptoHistory.fulfilled]: (state, action) => {
-      let cryptoItem = state.cryptoArray.find(
-        (crypto) => crypto.id == action.meta.arg
-      );
-      if (cryptoItem) cryptoItem.history = action.payload.data;
+      state.cryptoHistoryArray[action.meta.arg] = action.payload.data;
     },
   },
 });

@@ -14,7 +14,7 @@ function App() {
     dispatch(getCryptoData());
     let loop = setInterval(async () => {
       dispatch(getCryptoData());
-    }, 10000000);
+    }, 3000);
     return () => {
       clearInterval(loop);
     };

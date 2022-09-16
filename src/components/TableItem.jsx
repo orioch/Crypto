@@ -7,7 +7,7 @@ import ChartPreview from "./ChartPreview";
 function TableItem({ itemData }) {
   let dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getCryptoHistory(itemData.id));
+    if (!itemData.history) dispatch(getCryptoHistory(itemData.id));
   }, []);
 
   if (itemData)

@@ -85,7 +85,7 @@ export default function ScatterCovid({ lineOnly, dailyData }) {
         pointRadius: 0,
         backgroundColor: "rgba(255, 99, 132)",
         borderColor: "rgba(255, 99, 132)",
-        borderWidth: 2,
+        borderWidth: 1,
       },
     ],
   };
