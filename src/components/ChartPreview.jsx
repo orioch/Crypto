@@ -1,55 +1,98 @@
 import React from "react";
-import * as d3 from "d3";
-import flatMap from "array.prototype.flatmap";
-import { getCryptoHistory } from "../redux/features/cryptoDataSlice";
-import data from "./data";
+import { useSelector } from "react-redux";
+import {
+  Chart as ChartJS,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Scatter } from "react-chartjs-2";
 
-flatMap.shim();
-export default function ChartPreview({ data2, id }) {
-  //   const d3ref = React.useRef(null);
+ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
-  const dataRef = React.useRef(flatMap(data2 ? data2 : data, (e) => e));
-  React.useEffect(() => {
-    function init() {
-      const width = 400;
-      const height = 100;
-      const margin = 10;
+export default function ScatterCovid({ lineOnly, dailyData }) {
+  if (!dailyData) dailyData = [];
+  let options = {};
+  if (lineOnly) {
+    options = {
+      // responsive: true,
+      // maintainAspectRatio: true,
+      animations: false,
+      plugins: {
+        legend: {
+          display: false,
+        },
+        tooltip: {
+          enabled: false,
+        },
+      },
+      scales: {
+        yAxis: {
+          display: false,
+        },
+        xAxis: {
+          display: false,
+        },
+      },
+    };
+  } else {
+    options = {
+      plugins: {
+        title: {
+          display: true,
+          text: "Chart.js Scatter Chart",
+          font: {
+            size: 35,
+          },
+        },
+      },
+      scales: {
+        yAxis: {
+          ticks: {
+            font: {
+              size: 20,
+            },
+          },
+        },
+        xAxis: {
+          ticks: {
+            font: {
+              size: 20,
+            },
+            callback: (value) => {
+              if (!data.datasets[0].data[value]) return "";
+              return data.datasets[0].data[value].date.substring(0, 10);
+            },
+          },
+        },
+      },
+    };
+  }
 
-      const xScale = d3
-        .scaleTime()
-        .domain(d3.extent(dataRef.current, (d) => new Date(d.date)))
-        .range([0, width]);
+  const data = {
+    datasets: [
+      {
+        data: Array.from([...dailyData], (obj, index) => ({
+          x: index,
+          y: obj.priceUsd,
+          date: obj.date,
+        })),
 
-      const yScale = d3
-        .scaleLinear()
-        .domain([0, d3.max(data, (d) => d3.max(d.map((el) => el.priceUsd)))])
-        .range([height, 0]);
-
-      const line = d3
-        .line()
-        .x((d) => xScale(d.x))
-        .y((d) => yScale(d.y));
-
-      const dataset = dataRef.current.map((d) => ({
-        x: new Date(d.date),
-        y: d.priceUsd,
-      }));
-
-      const svg = d3
-        .select("#" + id)
-        .attr("width", width + margin * 2)
-        .attr("height", height + margin * 2)
-        .append("g")
-        .attr("transform", `translate(${margin}, ${margin})`);
-
-      svg.append("path").datum(dataset).attr("class", "line").attr("d", line);
-    }
-    init();
-  }, []);
+        showLine: true,
+        pointStyle: "rect",
+        pointRadius: 0,
+        backgroundColor: "rgba(255, 99, 132)",
+        borderColor: "rgba(255, 99, 132)",
+        borderWidth: 2,
+      },
+    ],
+  };
 
   return (
-    <div>
-      <svg id={id} />
+    <div className="chart">
+      <Scatter options={options} data={data} />
     </div>
   );
 }
