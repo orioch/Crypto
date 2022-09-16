@@ -21,7 +21,9 @@
 .chart {
   width: 150px;
 }
-
+.cell {
+  transition: color 1s;
+}
 .red {
   color: red;
 }

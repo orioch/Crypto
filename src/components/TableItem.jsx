@@ -4,9 +4,11 @@ import { getCryptoHistory } from "../redux/features/cryptoDataSlice";
 import { numberWithCommas } from "../utils/utilitis";
 import { BiUpArrow, BiDownArrow } from "react-icons/bi";
 import ChartPreview from "./ChartPreview";
+import { usePrevious } from "../utils/hooks";
 
 function TableItem({ itemData }) {
   let dispatch = useDispatch();
+  let prevItemData = usePrevious(itemData);
   useEffect(() => {
     if (!itemData.history) dispatch(getCryptoHistory(itemData.id));
   }, []);
@@ -24,7 +26,19 @@ function TableItem({ itemData }) {
             <div className="symbol-text">{itemData.symbol}</div>
           </div>
         </td>
-        <td>{numberWithCommas(parseFloat(itemData.priceUsd).toFixed(2))}$</td>
+        <td>
+          <div
+            className={
+              prevItemData.priceUsd < itemData.priceUsd
+                ? "cell green"
+                : prevItemData.priceUsd > itemData.priceUsd
+                ? "cell red"
+                : "cell"
+            }
+          >
+            {numberWithCommas(parseFloat(itemData.priceUsd).toFixed(2))}$
+          </div>
+        </td>
         <td>
           <div
             className={

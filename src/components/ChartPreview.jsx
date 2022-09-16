@@ -13,11 +13,15 @@ import { Scatter } from "react-chartjs-2";
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
 export default function ScatterCovid({ lineOnly, dailyData }) {
-  let color =
-    dailyData[0].priceUsd > dailyData[dailyData.length - 1].priceUsd
-      ? "red"
-      : "green";
+  let color = "green";
   if (!dailyData) dailyData = [];
+  if (dailyData[0]) {
+    color =
+      dailyData[0].priceUsd > dailyData[dailyData.length - 1].priceUsd
+        ? "red"
+        : "green";
+  }
+
   let options = {};
   if (lineOnly) {
     options = {
