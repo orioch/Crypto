@@ -1,7 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getCryptoHistory } from "../redux/features/cryptoDataSlice";
-import { numberWithCommas } from "../utils/utilitis";
+import {
+  numberWithCommas,
+  SignificantDown,
+  SignificantUp,
+} from "../utils/utilitis";
 import { BiUpArrow, BiDownArrow } from "react-icons/bi";
 import ChartPreview from "./ChartPreview";
 import { usePrevious } from "../utils/hooks";
@@ -13,7 +17,7 @@ function TableItem({ itemData }) {
     if (!itemData.history) dispatch(getCryptoHistory(itemData.id));
   }, []);
 
-  if (itemData)
+  if (itemData && prevItemData)
     return (
       <tr>
         <td>
@@ -29,11 +33,11 @@ function TableItem({ itemData }) {
         <td>
           <div
             className={
-              prevItemData.priceUsd < itemData.priceUsd
+              SignificantUp(prevItemData.priceUsd, itemData.priceUsd)
                 ? "cell green"
-                : prevItemData.priceUsd > itemData.priceUsd
+                : SignificantDown(prevItemData.priceUsd, itemData.priceUsd)
                 ? "cell red"
-                : "cell"
+                : "cell black"
             }
           >
             {numberWithCommas(parseFloat(itemData.priceUsd).toFixed(2))}$
