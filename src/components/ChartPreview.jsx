@@ -13,6 +13,10 @@ import { Scatter } from "react-chartjs-2";
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
 export default function ScatterCovid({ lineOnly, dailyData }) {
+  let color =
+    dailyData[0].priceUsd > dailyData[dailyData.length - 1].priceUsd
+      ? "red"
+      : "green";
   if (!dailyData) dailyData = [];
   let options = {};
   if (lineOnly) {
@@ -83,8 +87,8 @@ export default function ScatterCovid({ lineOnly, dailyData }) {
         showLine: true,
         pointStyle: "rect",
         pointRadius: 0,
-        backgroundColor: "rgba(255, 99, 132)",
-        borderColor: "rgba(255, 99, 132)",
+        backgroundColor: color,
+        borderColor: color,
         borderWidth: 1,
       },
     ],
