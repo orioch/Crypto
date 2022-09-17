@@ -7,7 +7,7 @@ import "./App.css";
 import PageNav from "./components/PageNav";
 
 function App() {
-  const { currentPage, sortProperty, cryptoHistoryArray } = useSelector(
+  const { currentPage, sort, cryptoHistoryArray } = useSelector(
     (store) => store.cryptoData
   );
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ function App() {
     return () => {
       clearInterval(loop);
     };
-  }, [sortProperty, currentPage]);
+  }, [sort, currentPage]);
 
   useEffect(() => {
     dispatch(loadCharts());

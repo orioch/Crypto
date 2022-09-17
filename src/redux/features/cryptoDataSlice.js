@@ -8,15 +8,15 @@ const initialState = {
   currentPage: 1,
   itemsInPage: 15,
   length: 0,
-  sortProperty: "name",
+  sort: { prop: "priceUsd", directionUp: false },
 };
 
-const sortArray = (array, prop) => {
+const sortArray = (array, { prop, directionUp }) => {
   return array.sort((a, b) => {
     let valueA = prop == "name" ? a[prop].toLowerCase() : Number(a[prop]);
     let valueB = prop == "name" ? b[prop].toLowerCase() : Number(b[prop]);
 
-    return valueA < valueB ? 1 : -1;
+    return directionUp ? (valueA > valueB ? 1 : -1) : valueA < valueB ? 1 : -1;
   });
 };
 export const getCryptoData = createAsyncThunk("crypto/getData", () => {
@@ -43,9 +43,13 @@ const dataSlice = createSlice({
       state.currentPage = action.payload;
     },
     sortCryptoArray: (state, action) => {
-      state.sortProperty = action.payload;
-
-      state.cryptoArray = sortArray(state.cryptoArray, action.payload);
+      if (state.sort.prop == action.payload) {
+        state.sort.directionUp = !state.sort.directionUp;
+      } else {
+        state.sort.directionUp = false;
+        state.sort.prop = action.payload;
+      }
+      state.cryptoArray = sortArray(state.cryptoArray, state.sort);
     },
     loadCharts: (state) => {
       let newCryptoArray = state.cryptoArray;
@@ -60,7 +64,7 @@ const dataSlice = createSlice({
       console.log("ok");
       state.length = action.payload.data.length;
       let newCryptoArray = action.payload.data;
-      newCryptoArray = sortArray(newCryptoArray, state.sortProperty);
+      newCryptoArray = sortArray(newCryptoArray, state.sort);
       newCryptoArray.forEach((crypto) => {
         crypto.history = state.cryptoHistoryArray[crypto.id];
       });
