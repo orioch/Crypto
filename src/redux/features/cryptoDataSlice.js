@@ -2,15 +2,23 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 
 const pricingDataUrl = "https://api.coincap.io/v2/assets";
-
 const initialState = {
   cryptoArray: [],
   cryptoHistoryArray: {},
   currentPage: 1,
   itemsInPage: 15,
   length: 0,
+  sortProperty: "name",
 };
 
+const sortArray = (array, prop) => {
+  return array.sort((a, b) => {
+    let valueA = prop == "name" ? a[prop].toLowerCase() : Number(a[prop]);
+    let valueB = prop == "name" ? b[prop].toLowerCase() : Number(b[prop]);
+
+    return valueA < valueB ? 1 : -1;
+  });
+};
 export const getCryptoData = createAsyncThunk("crypto/getData", () => {
   return fetch(pricingDataUrl)
     .then((res) => res.json())
@@ -34,11 +42,25 @@ const dataSlice = createSlice({
     changeCurrentPage: (state, action) => {
       state.currentPage = action.payload;
     },
+    sortCryptoArray: (state, action) => {
+      state.sortProperty = action.payload;
+
+      state.cryptoArray = sortArray(state.cryptoArray, action.payload);
+    },
+    loadCharts: (state) => {
+      let newCryptoArray = state.cryptoArray;
+      newCryptoArray.forEach((crypto) => {
+        crypto.history = state.cryptoHistoryArray[crypto.id];
+      });
+      state.cryptoArray = newCryptoArray;
+    },
   },
   extraReducers: {
     [getCryptoData.fulfilled]: (state, action) => {
+      console.log("ok");
       state.length = action.payload.data.length;
       let newCryptoArray = action.payload.data;
+      newCryptoArray = sortArray(newCryptoArray, state.sortProperty);
       newCryptoArray.forEach((crypto) => {
         crypto.history = state.cryptoHistoryArray[crypto.id];
       });
@@ -50,5 +72,6 @@ const dataSlice = createSlice({
   },
 });
 
-export const { changeCurrentPage } = dataSlice.actions;
+export const { changeCurrentPage, sortCryptoArray, loadCharts } =
+  dataSlice.actions;
 export default dataSlice.reducer;

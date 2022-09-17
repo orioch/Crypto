@@ -12,10 +12,10 @@ export default function CryptoTable() {
     <Table bordered hover size="sm">
       <thead>
         <tr>
-          <TableHeader>name</TableHeader>
-          <TableHeader>Price</TableHeader>
-          <TableHeader>24h%</TableHeader>
-          <TableHeader>Last 7 days chart</TableHeader>
+          <TableHeader id="name">Name</TableHeader>
+          <TableHeader id="priceUsd">Price</TableHeader>
+          <TableHeader id="changePercent24Hr">24h%</TableHeader>
+          <TableHeader id="history">Last 7 days chart</TableHeader>
         </tr>
       </thead>
       <tbody>
