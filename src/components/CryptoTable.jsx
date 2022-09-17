@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import Table from "react-bootstrap/Table";
 import TableItem from "./TableItem";
+import TableHeader from "./tableHeader";
 
 export default function CryptoTable() {
   const { cryptoArray, itemsInPage, currentPage } = useSelector(
@@ -11,10 +12,10 @@ export default function CryptoTable() {
     <Table bordered hover size="sm">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Price</th>
-          <th>24h%</th>
-          <th>Last 7 days chart</th>
+          <TableHeader>name</TableHeader>
+          <TableHeader>Price</TableHeader>
+          <TableHeader>24h%</TableHeader>
+          <TableHeader>Last 7 days chart</TableHeader>
         </tr>
       </thead>
       <tbody>
