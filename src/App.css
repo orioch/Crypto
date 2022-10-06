@@ -34,3 +34,16 @@
 .black {
   color: black;
 }
+
+.search {
+  width: 300px;
+  margin: 10px;
+}
+
+/* for mobile */
+@media (max-width: 767.98px) {
+  .search {
+    width: 60%;
+    margin: 1%;
+  }
+}

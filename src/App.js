@@ -5,6 +5,7 @@ import CryptoTable from "./components/CryptoTable";
 import { getCryptoData, loadCharts } from "./redux/features/cryptoDataSlice";
 import "./App.css";
 import PageNav from "./components/PageNav";
+import Search from "./components/Search";
 
 function App() {
   const { currentPage, sort, cryptoHistoryArray } = useSelector(
@@ -27,6 +28,7 @@ function App() {
   }, [cryptoHistoryArray]);
   return (
     <div className="App">
+      <Search />
       <CryptoTable />
       <PageNav />
     </div>
