@@ -2,15 +2,15 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import { ImSearch } from "react-icons/im";
 
 export default function Search() {
   return (
-    <Form.Control
-      className="search"
-      placeholder="search"
-      aria-label="search"
-      type="text"
-      aria-describedby="basic-addon2"
-    />
+    <InputGroup className="search">
+      <Form.Control placeholder="search" aria-label="search" type="text" />
+      <Button>
+        <ImSearch />
+      </Button>
+    </InputGroup>
   );
 }
