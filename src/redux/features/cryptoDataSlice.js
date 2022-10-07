@@ -79,6 +79,9 @@ const dataSlice = createSlice({
       console.log("ok");
       state.length = action.payload.data.length;
       state.cryptoArray = action.payload.data;
+      state.cryptoArray.forEach((crypto) => {
+        crypto.history = state.cryptoHistoryArray[crypto.id];
+      });
       state.cryptoArrayToDisplay = searchInArray(
         state.cryptoArray,
         state.searchText
@@ -87,12 +90,12 @@ const dataSlice = createSlice({
         state.cryptoArrayToDisplay,
         state.sort
       );
-      // state.cryptoArrayToDisplay.forEach((crypto) => {
-      //   crypto.history = state.cryptoHistoryArray[crypto.id];
-      // });
     },
     [getCryptoHistory.fulfilled]: (state, action) => {
       state.cryptoHistoryArray[action.meta.arg] = action.payload.data;
+      state.cryptoArrayToDisplay.find(
+        (crypto) => crypto.id == action.meta.arg
+      ).history = action.payload.data;
     },
   },
 });
