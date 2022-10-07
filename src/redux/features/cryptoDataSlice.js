@@ -77,7 +77,6 @@ const dataSlice = createSlice({
   extraReducers: {
     [getCryptoData.fulfilled]: (state, action) => {
       console.log("ok");
-      state.length = action.payload.data.length;
       state.cryptoArray = action.payload.data;
       state.cryptoArray.forEach((crypto) => {
         crypto.history = state.cryptoHistoryArray[crypto.id];
@@ -90,6 +89,7 @@ const dataSlice = createSlice({
         state.cryptoArrayToDisplay,
         state.sort
       );
+      state.length = state.cryptoArrayToDisplay.length;
     },
     [getCryptoHistory.fulfilled]: (state, action) => {
       state.cryptoHistoryArray[action.meta.arg] = action.payload.data;
