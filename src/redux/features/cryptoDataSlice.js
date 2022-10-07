@@ -5,10 +5,12 @@ const pricingDataUrl = "https://api.coincap.io/v2/assets";
 const initialState = {
   cryptoArray: [],
   cryptoHistoryArray: {},
+  cryptoArrayToDisplay: [],
   currentPage: 1,
   itemsInPage: 15,
   length: 0,
   sort: { prop: "priceUsd", directionUp: false },
+  searchText: "",
 };
 
 const sortArray = (array, { prop, directionUp }) => {
@@ -18,6 +20,11 @@ const sortArray = (array, { prop, directionUp }) => {
 
     return directionUp ? (valueA > valueB ? 1 : -1) : valueA < valueB ? 1 : -1;
   });
+};
+const searchInArray = (array, text) => {
+  return array.filter((crypto) =>
+    crypto.name.toLowerCase().includes(text.toLowerCase())
+  );
 };
 export const getCryptoData = createAsyncThunk("crypto/getData", () => {
   return fetch(pricingDataUrl)
@@ -49,33 +56,50 @@ const dataSlice = createSlice({
         state.sort.directionUp = false;
         state.sort.prop = action.payload;
       }
-      state.cryptoArray = sortArray(state.cryptoArray, state.sort);
+      state.cryptoArrayToDisplay = sortArray(
+        state.cryptoArrayToDisplay,
+        state.sort
+      );
     },
     loadCharts: (state) => {
-      let newCryptoArray = state.cryptoArray;
-      newCryptoArray.forEach((crypto) => {
+      state.cryptoArray.forEach((crypto) => {
         crypto.history = state.cryptoHistoryArray[crypto.id];
       });
-      state.cryptoArray = newCryptoArray;
+    },
+    search: (state, action) => {
+      state.searchText = action.payload;
+      state.cryptoArrayToDisplay = searchInArray(
+        state.cryptoArray,
+        action.payload
+      );
     },
   },
   extraReducers: {
     [getCryptoData.fulfilled]: (state, action) => {
       console.log("ok");
-      state.length = action.payload.data.length;
-      let newCryptoArray = action.payload.data;
-      newCryptoArray = sortArray(newCryptoArray, state.sort);
-      newCryptoArray.forEach((crypto) => {
+      state.cryptoArray = action.payload.data;
+      state.cryptoArray.forEach((crypto) => {
         crypto.history = state.cryptoHistoryArray[crypto.id];
       });
-      state.cryptoArray = newCryptoArray;
+      state.cryptoArrayToDisplay = searchInArray(
+        state.cryptoArray,
+        state.searchText
+      );
+      state.cryptoArrayToDisplay = sortArray(
+        state.cryptoArrayToDisplay,
+        state.sort
+      );
+      state.length = state.cryptoArrayToDisplay.length;
     },
     [getCryptoHistory.fulfilled]: (state, action) => {
       state.cryptoHistoryArray[action.meta.arg] = action.payload.data;
+      state.cryptoArrayToDisplay.find(
+        (crypto) => crypto.id == action.meta.arg
+      ).history = action.payload.data;
     },
   },
 });
 
-export const { changeCurrentPage, sortCryptoArray, loadCharts } =
+export const { changeCurrentPage, sortCryptoArray, loadCharts, search } =
   dataSlice.actions;
 export default dataSlice.reducer;

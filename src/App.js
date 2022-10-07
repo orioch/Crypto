@@ -5,9 +5,10 @@ import CryptoTable from "./components/CryptoTable";
 import { getCryptoData, loadCharts } from "./redux/features/cryptoDataSlice";
 import "./App.css";
 import PageNav from "./components/PageNav";
+import Search from "./components/Search";
 
 function App() {
-  const { currentPage, sort, cryptoHistoryArray } = useSelector(
+  const { currentPage, sort, cryptoHistoryArray, searchText } = useSelector(
     (store) => store.cryptoData
   );
   const dispatch = useDispatch();
@@ -20,13 +21,14 @@ function App() {
     return () => {
       clearInterval(loop);
     };
-  }, [sort, currentPage]);
+  }, [sort, searchText, currentPage]);
 
   useEffect(() => {
     dispatch(loadCharts());
   }, [cryptoHistoryArray]);
   return (
     <div className="App">
+      <Search />
       <CryptoTable />
       <PageNav />
     </div>

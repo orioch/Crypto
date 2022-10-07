@@ -4,7 +4,7 @@ import TableItem from "./TableItem";
 import TableHeader from "./tableHeader";
 
 export default function CryptoTable() {
-  const { cryptoArray, itemsInPage, currentPage } = useSelector(
+  const { cryptoArrayToDisplay, itemsInPage, currentPage } = useSelector(
     (store) => store.cryptoData
   );
 
@@ -19,7 +19,7 @@ export default function CryptoTable() {
         </tr>
       </thead>
       <tbody>
-        {cryptoArray
+        {cryptoArrayToDisplay
           .slice((currentPage - 1) * itemsInPage, currentPage * itemsInPage)
           .map((item) => {
             if (item) return <TableItem key={item.id} itemData={item} />;
