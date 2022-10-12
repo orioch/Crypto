@@ -1,6 +1,30 @@
 .crypto-page-header {
-  background-color: rgb(188, 187, 187);
+  display: flex;
+  background-color: rgb(241, 245, 248);
   color: black;
   height: 50vh;
-  font-size: 10vw;
+  width: 100vw;
+}
+.crypto-page-header .box {
+  display: flex;
+  margin: 5vw;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  height: fit-content;
+}
+
+.crypto-page-header .box .text {
+  font-size: 5vw;
+  margin: 1vw;
+}
+.crypto-page-header .box .icon {
+  width: 5vw;
+  height: 5vw;
+  margin-right: 1vw;
+}
+
+.crypto-page .chart {
+  width: 100vw;
+  height: 500px !important;
 }

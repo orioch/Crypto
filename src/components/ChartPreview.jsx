@@ -47,6 +47,7 @@ export default function ScatterCovid({ lineOnly, dailyData }) {
     };
   } else {
     options = {
+      maintainAspectRatio: false,
       plugins: {
         title: {
           display: true,
