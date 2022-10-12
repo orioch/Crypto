@@ -3,9 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import ChartPreview from "./components/ChartPreview";
 import CryptoTable from "./components/CryptoTable";
 import { getCryptoData, loadCharts } from "./redux/features/cryptoDataSlice";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import PageNav from "./components/PageNav";
 import Search from "./components/Search";
+import Main from "./pages/Main";
+import CryptoPage from "./pages/CryptoPage";
 
 function App() {
   const { currentPage, sort, cryptoHistoryArray, searchText } = useSelector(
@@ -28,9 +31,14 @@ function App() {
   }, [cryptoHistoryArray]);
   return (
     <div className="App">
-      <Search />
-      <CryptoTable />
-      <PageNav />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="tokens" element={<CryptoPage />}>
+            <Route path=":id" element={<CryptoPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
