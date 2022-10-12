@@ -9,6 +9,7 @@ import {
 import { BiUpArrow, BiDownArrow } from "react-icons/bi";
 import ChartPreview from "./ChartPreview";
 import { usePrevious } from "../utils/hooks";
+import { Link } from "react-router-dom";
 
 function TableItem({ itemData }) {
   let dispatch = useDispatch();
@@ -21,14 +22,16 @@ function TableItem({ itemData }) {
     return (
       <tr>
         <td>
-          <div className="cell">
-            <img
-              src={`https://coinicons-api.vercel.app/api/icon/${itemData.symbol.toLowerCase()}`}
-              className="icon"
-            />
-            <div className="name-text">{itemData.name}</div>
-            <div className="symbol-text">{itemData.symbol}</div>
-          </div>
+          <Link to={"/tokens/" + itemData.symbol}>
+            <div className="cell">
+              <img
+                src={`https://coinicons-api.vercel.app/api/icon/${itemData.symbol.toLowerCase()}`}
+                className="icon"
+              />
+              <div className="name-text">{itemData.name}</div>
+              <div className="symbol-text">{itemData.symbol}</div>
+            </div>
+          </Link>
         </td>
         <td>
           <div
