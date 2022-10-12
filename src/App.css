@@ -29,16 +29,18 @@ a:hover {
   width: 150px;
 }
 .cell {
-  transition: color 1s;
 }
 .red {
+  transition: color 1s;
   color: red;
 }
 .green {
+  transition: color 1s;
   color: green;
 }
 
 .black {
+  transition: color 1s;
   color: black;
 }
 

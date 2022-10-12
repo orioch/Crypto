@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getCryptoHistory } from "../redux/features/cryptoDataSlice";
 import {
@@ -14,6 +14,25 @@ import { Link } from "react-router-dom";
 function TableItem({ itemData }) {
   let dispatch = useDispatch();
   let prevItemData = usePrevious(itemData);
+  const [color, setColor] = useState("black");
+
+  useEffect(() => {
+    if (prevItemData && itemData) {
+      if (SignificantUp(prevItemData.priceUsd, itemData.priceUsd)) {
+        setColor("green");
+        setTimeout(() => {
+          setColor("black");
+        }, 3000);
+      }
+      if (SignificantDown(prevItemData.priceUsd, itemData.priceUsd)) {
+        setColor("red");
+        setTimeout(() => {
+          setColor("black");
+        }, 3000);
+      }
+    }
+  }, [itemData.priceUsd]);
+
   useEffect(() => {
     if (!itemData.history) dispatch(getCryptoHistory(itemData.id));
   }, []);
@@ -34,15 +53,7 @@ function TableItem({ itemData }) {
           </Link>
         </td>
         <td>
-          <div
-            className={
-              SignificantUp(prevItemData.priceUsd, itemData.priceUsd)
-                ? "cell green"
-                : SignificantDown(prevItemData.priceUsd, itemData.priceUsd)
-                ? "cell red"
-                : "cell black"
-            }
-          >
+          <div className={color}>
             {numberWithCommas(parseFloat(itemData.priceUsd).toFixed(2))}$
           </div>
         </td>
