@@ -9,6 +9,7 @@ import PageNav from "./components/PageNav";
 import Search from "./components/Search";
 import Main from "./pages/Main";
 import CryptoPage from "./pages/CryptoPage";
+import HeaderNavBar from "./components/HeaderNavBar";
 
 function App() {
   const { currentPage, sort, cryptoHistoryArray, searchText } = useSelector(
@@ -31,6 +32,7 @@ function App() {
   }, [cryptoHistoryArray]);
   return (
     <div className="App">
+      <HeaderNavBar />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} />

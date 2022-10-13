@@ -10,6 +10,10 @@ a:hover {
   margin-right: 10px;
 }
 
+.nav-bar .icon {
+  margin-right: 15px;
+}
+
 .cell {
   display: flex;
   align-items: center;
