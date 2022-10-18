@@ -1,0 +1,28 @@
+.cards {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.articles-card {
+  width: 60vw;
+  height: 20rem;
+}
+.trending-card {
+  width: 30vw;
+  height: 20rem;
+}
+
+/* for mobile */
+@media (max-width: 767.98px) {
+  .cards {
+    flex-direction: column;
+  }
+  .articles-card {
+    width: 100%;
+  }
+  .trending-card {
+    width: 100%;
+  }
+}

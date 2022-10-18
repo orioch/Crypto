@@ -2,10 +2,12 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 
 const pricingDataUrl = "https://api.coincap.io/v2/assets";
+const articlesUrl = "https://cryptopricing-server.herokuapp.com/articles";
 const initialState = {
   cryptoArray: [],
   cryptoHistoryArray: {},
   cryptoArrayToDisplay: [],
+  articles: [],
   currentPage: 1,
   itemsInPage: 15,
   length: 0,
@@ -41,6 +43,12 @@ export const getCryptoHistory = createAsyncThunk(
       .catch((err) => console.log(err));
   }
 );
+
+export const getArticles = createAsyncThunk("crypto/getArticles", () => {
+  return fetch(articlesUrl)
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
+});
 
 const dataSlice = createSlice({
   name: "data",
@@ -96,6 +104,9 @@ const dataSlice = createSlice({
       state.cryptoArrayToDisplay.find(
         (crypto) => crypto.id == action.meta.arg
       ).history = action.payload.data;
+    },
+    [getArticles.fulfilled]: (state, action) => {
+      state.articles = action.payload.data;
     },
   },
 });

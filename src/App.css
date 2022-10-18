@@ -20,6 +20,7 @@ a:hover {
 }
 
 .main-page .name-text {
+  overflow: hidden;
   font-size: 15px;
   margin-right: 20px;
 }
