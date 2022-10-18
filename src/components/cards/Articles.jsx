@@ -29,7 +29,7 @@ export default function Articles() {
           {topArticles ? (
             topArticles.map((article, index) => (
               <Carousel.Item>
-                <div className="article-box">
+                <div className="box">
                   <h3>{article.title}</h3>
                   <p>{article.description}</p>
                 </div>

@@ -5,20 +5,33 @@
   flex-direction: row;
   justify-content: space-around;
 }
-.articles-card {
-  width: 60vw;
-  height: 20rem;
-}
-.articles-card .carousel {
-  width: 100%;
-  height: 100%;
-}
-.articles-card .article-box {
+
+.cards .box {
   height: 15rem;
   width: 70%;
   margin: auto;
   margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
 }
+
+.articles-card {
+  width: 60vw;
+  height: 20rem;
+}
+.articles-card .box {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.trending-card .box {
+  justify-content: center;
+  align-items: center;
+}
+.carousel {
+  width: 100%;
+  height: 100%;
+}
+
 .articles-card h3 {
   font-size: 1.5rem;
 }
@@ -26,6 +39,7 @@
   font-size: 1rem;
   overflow: hidden;
 }
+
 .trending-card {
   width: 30vw;
   height: 20rem;
