@@ -2,19 +2,29 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ChartPreview from "./components/ChartPreview";
 import CryptoTable from "./components/CryptoTable";
-import { getCryptoData, loadCharts } from "./redux/features/cryptoDataSlice";
+import {
+  getCryptoData,
+  getArticles,
+  loadCharts,
+} from "./redux/features/cryptoDataSlice";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import PageNav from "./components/PageNav";
 import Search from "./components/Search";
 import Main from "./pages/Main";
 import CryptoPage from "./pages/CryptoPage";
+import HeaderNavBar from "./components/HeaderNavBar";
 
 function App() {
   const { currentPage, sort, cryptoHistoryArray, searchText } = useSelector(
     (store) => store.cryptoData
   );
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getArticles());
+  }, []);
 
   useEffect(() => {
     dispatch(getCryptoData());
@@ -30,7 +40,8 @@ function App() {
     dispatch(loadCharts());
   }, [cryptoHistoryArray]);
   return (
-    <div className="App">
+    <div>
+      <HeaderNavBar />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} />
