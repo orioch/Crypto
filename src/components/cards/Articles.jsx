@@ -8,37 +8,36 @@ import "../../css/cards.css";
 export default function Articles() {
   const [index, setIndex] = useState(0);
   const { articles } = useSelector((store) => store.cryptoData);
-  if (!articles) {
-    return <div>loading</div>;
+  let topArticles = undefined;
+  if (articles.topArticles) {
+    topArticles = articles.topArticles.slice(0, 4);
   }
-
-  if (!articles.topArticles) {
-    return <div>loading</div>;
-  }
-
-  let topArticles = articles.topArticles.slice(0, 4);
 
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
-  console.log(topArticles);
+
   return (
     <div>
       <Card className="articles-card">
         <Carousel
-          style={{ width: "18rem", height: "20rem" }}
+          className="carousel"
           variant="dark"
           activeIndex={index}
           onSelect={handleSelect}
         >
-          {topArticles.map((article, index) => (
-            <Carousel.Item>
-              <div style={{ fontSize: "2px", margin: "3rem" }}>
-                <h3>{article.title}</h3>
-                <p>{article.description.slice(0, 130)}...</p>
-              </div>
-            </Carousel.Item>
-          ))}
+          {topArticles ? (
+            topArticles.map((article, index) => (
+              <Carousel.Item>
+                <div className="article-box">
+                  <h3>{article.title}</h3>
+                  <p>{article.description}</p>
+                </div>
+              </Carousel.Item>
+            ))
+          ) : (
+            <div>loading</div>
+          )}
         </Carousel>
       </Card>
     </div>
