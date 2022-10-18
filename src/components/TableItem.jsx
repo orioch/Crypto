@@ -41,7 +41,7 @@ function TableItem({ itemData }) {
 
   if (itemData && prevItemData)
     return (
-      <TableRow>
+      <TableRow hover>
         <TableCell>
           <Link to={"/tokens/" + itemData.symbol}>
             <div className="cell">
