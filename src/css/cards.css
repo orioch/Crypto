@@ -45,6 +45,13 @@
   height: 20rem;
 }
 
+.trending-card .icon {
+  margin: 0 0 1rem 0;
+
+  width: 6rem;
+  height: 6rem;
+}
+
 /* for mobile */
 @media (max-width: 767.98px) {
   .cards {

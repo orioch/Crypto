@@ -29,10 +29,10 @@ export default function Articles() {
           {topArticles ? (
             topArticles.map((article, index) => (
               <Carousel.Item>
-                <div className="box">
+                <a href={article.link} className="box">
                   <h3>{article.title}</h3>
                   <p>{article.description}</p>
-                </div>
+                </a>
               </Carousel.Item>
             ))
           ) : (

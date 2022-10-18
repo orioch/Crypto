@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Card, Carousel } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { numberWithCommas } from "../../utils/utilitis";
 
 export default function Trending() {
@@ -25,12 +26,16 @@ export default function Trending() {
           {trending ? (
             trending.map((crypto, index) => (
               <Carousel.Item>
-                <div className="box">
+                <Link to={"/tokens/" + crypto.symbol} className="box">
+                  <img
+                    src={`https://coinicons-api.vercel.app/api/icon/${crypto.symbol.toLowerCase()}`}
+                    className="icon"
+                  />
                   <h3>{crypto.name}</h3>
                   <p>
                     {numberWithCommas(parseFloat(crypto.priceUsd).toFixed(2))}$
                   </p>
-                </div>
+                </Link>
               </Carousel.Item>
             ))
           ) : (
