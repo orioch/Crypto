@@ -9,7 +9,7 @@ export default function Main() {
     <div className="main-page">
       <Cards />
       <Search />
-      {/* <CryptoTable /> */}
+      <CryptoTable />
       <PageNav />
     </div>
   );

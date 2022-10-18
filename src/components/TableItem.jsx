@@ -10,6 +10,8 @@ import { BiUpArrow, BiDownArrow } from "react-icons/bi";
 import ChartPreview from "./ChartPreview";
 import { usePrevious } from "../utils/hooks";
 import { Link } from "react-router-dom";
+import { Td, Tr } from "react-super-responsive-table";
+import { TableCell, TableRow } from "@mui/material";
 
 function TableItem({ itemData }) {
   let dispatch = useDispatch();
@@ -39,8 +41,8 @@ function TableItem({ itemData }) {
 
   if (itemData && prevItemData)
     return (
-      <tr>
-        <td>
+      <TableRow hover>
+        <TableCell>
           <Link to={"/tokens/" + itemData.symbol}>
             <div className="cell">
               <img
@@ -51,13 +53,13 @@ function TableItem({ itemData }) {
               <div className="symbol-text">{itemData.symbol}</div>
             </div>
           </Link>
-        </td>
-        <td>
+        </TableCell>
+        <TableCell>
           <div className={color}>
             {numberWithCommas(parseFloat(itemData.priceUsd).toFixed(2))}$
           </div>
-        </td>
-        <td>
+        </TableCell>
+        <TableCell>
           <div
             className={
               itemData.changePercent24Hr > 0 ? "cell green" : "cell red"
@@ -70,11 +72,11 @@ function TableItem({ itemData }) {
             )}
             {Math.abs(parseFloat(itemData.changePercent24Hr).toFixed(2))}%
           </div>
-        </td>
-        <td>
+        </TableCell>
+        <TableCell>
           <ChartPreview dailyData={itemData.history} lineOnly={true} />
-        </td>
-      </tr>
+        </TableCell>
+      </TableRow>
     );
 }
 
