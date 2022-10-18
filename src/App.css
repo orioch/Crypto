@@ -5,7 +5,7 @@ a {
 a:hover {
   color: black;
 }
-.main-page .icon {
+.cell .icon {
   max-height: 20px;
   margin-right: 10px;
 }
