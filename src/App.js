@@ -8,7 +8,7 @@ import {
   loadCharts,
 } from "./redux/features/cryptoDataSlice";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
 import "./App.css";
 import PageNav from "./components/PageNav";
 import Search from "./components/Search";
@@ -41,15 +41,15 @@ function App() {
   }, [cryptoHistoryArray]);
   return (
     <div>
-      <HeaderNavBar />
-      <BrowserRouter>
+      <HashRouter>
+        <HeaderNavBar />
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="tokens" element={<CryptoPage />}>
             <Route path=":id" element={<CryptoPage />} />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }

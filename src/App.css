@@ -5,6 +5,12 @@ a {
 a:hover {
   color: black;
 }
+.nav-bar a {
+  color: white;
+}
+.nav-bar a :hover {
+  color: rgb(211, 210, 210);
+}
 .cell .icon {
   max-height: 20px;
   margin-right: 10px;
