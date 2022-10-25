@@ -18,18 +18,19 @@ export default function Search() {
     <Form onSubmit={submit}>
       <InputGroup className="search">
         <Form.Control
+          className="input"
           value={searchText}
           onChange={(event) => setSearchText(event.target.value)}
           placeholder="search"
           aria-label="search"
           type="text"
         />
-        <Button type="submit">
+        <Button variant="dark" type="submit">
           <ImSearch />
         </Button>
         <Button
           onClick={() => dispatch(search(""))}
-          variant="outline-primary"
+          variant="outline-dark"
           type="button"
         >
           Clear Search
