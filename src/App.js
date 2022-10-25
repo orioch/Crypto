@@ -8,7 +8,13 @@ import {
   loadCharts,
 } from "./redux/features/cryptoDataSlice";
 
-import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  HashRouter,
+  useLocation,
+} from "react-router-dom";
 import "./App.css";
 import PageNav from "./components/PageNav";
 import Search from "./components/Search";
@@ -17,6 +23,7 @@ import CryptoPage from "./pages/CryptoPage";
 import HeaderNavBar from "./components/HeaderNavBar";
 
 function App() {
+  let location = useLocation();
   const { currentPage, sort, cryptoHistoryArray, searchText } = useSelector(
     (store) => store.cryptoData
   );
@@ -39,17 +46,19 @@ function App() {
   useEffect(() => {
     dispatch(loadCharts());
   }, [cryptoHistoryArray]);
+
+  useEffect(() => {
+    if (location.pathname == "/") dispatch(getCryptoData());
+  }, [location]);
   return (
     <div>
-      <HashRouter>
-        <HeaderNavBar />
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="tokens" element={<CryptoPage />}>
-            <Route path=":id" element={<CryptoPage />} />
-          </Route>
-        </Routes>
-      </HashRouter>
+      <HeaderNavBar />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="tokens" element={<CryptoPage />}>
+          <Route path=":id" element={<CryptoPage />} />
+        </Route>
+      </Routes>
     </div>
   );
 }
