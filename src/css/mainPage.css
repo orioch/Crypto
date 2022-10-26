@@ -1,0 +1,40 @@
+.cell .icon {
+  max-height: 20px;
+  margin-right: 10px;
+}
+
+.nav-bar .icon {
+  margin-right: 15px;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+}
+
+.main-page .name-text {
+  overflow: hidden;
+  font-size: 15px;
+  margin-right: 20px;
+}
+
+.main-page .symbol-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgb(130, 130, 130);
+}
+
+.chart {
+  width: 150px;
+}
+
+.search {
+  width: 300px;
+  margin: 3rem auto 2rem auto;
+}
+
+.search .input:focus {
+  border-color: #cccccc;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
