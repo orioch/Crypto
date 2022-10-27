@@ -8,8 +8,10 @@ import "../css/mainPage.css";
 export default function Main() {
   return (
     <div className="main-page">
-      <Cards />
-      <Search />
+      <div className="header">
+        <Cards />
+        <Search />
+      </div>
       <CryptoTable />
       <PageNav />
     </div>
