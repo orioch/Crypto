@@ -2,7 +2,12 @@
   max-height: 20px;
   margin-right: 10px;
 }
-
+.main-page {
+  background-color: var(--bg-color);
+}
+/* .header {
+  background-color: var(--bg-color);
+} */
 .nav-bar .icon {
   margin-right: 15px;
 }
@@ -37,4 +42,11 @@
   border-color: #cccccc;
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+
+.pagination {
+  justify-content: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  /* background-color: var(--bg-color); */
 }
