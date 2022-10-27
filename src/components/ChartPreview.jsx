@@ -17,7 +17,8 @@ export default function ScatterCovid({ lineOnly, dailyData }) {
   if (!dailyData) dailyData = [];
   if (dailyData[0]) {
     color =
-      dailyData[0].priceUsd > dailyData[dailyData.length - 1].priceUsd
+      Number(dailyData[0].priceUsd) >
+      Number(dailyData[dailyData.length - 1].priceUsd)
         ? "red"
         : "green";
   }
