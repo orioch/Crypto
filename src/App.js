@@ -34,22 +34,9 @@ function App() {
   }, []);
 
   useEffect(() => {
-    dispatch(getCryptoData());
-    let loop = setInterval(async () => {
-      dispatch(getCryptoData());
-    }, 10000);
-    return () => {
-      clearInterval(loop);
-    };
-  }, [sort, searchText, currentPage]);
-
-  useEffect(() => {
     dispatch(loadCharts());
   }, [cryptoHistoryArray]);
 
-  useEffect(() => {
-    if (location.pathname == "/") dispatch(getCryptoData());
-  }, [location]);
   return (
     <div>
       <HeaderNavBar />
