@@ -33,10 +33,6 @@ function App() {
     dispatch(getArticles());
   }, []);
 
-  useEffect(() => {
-    dispatch(loadCharts());
-  }, [cryptoHistoryArray]);
-
   return (
     <div>
       <HeaderNavBar />
