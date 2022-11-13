@@ -5,7 +5,11 @@ import CryptoTable from "../components/CryptoTable";
 import PageNav from "../components/PageNav";
 import Search from "../components/Search";
 import "../css/mainPage.css";
-import { getCryptoData, loadCharts } from "../redux/features/cryptoDataSlice";
+import {
+  getArticles,
+  getCryptoData,
+  loadCharts,
+} from "../redux/features/cryptoDataSlice";
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -19,9 +23,10 @@ export default function Main() {
       clearInterval(loop);
     };
   }, []);
-  // dispatch loadChart once
+  // dispatch loadChart and getArticles once
   useEffect(() => {
     dispatch(loadCharts());
+    dispatch(getArticles());
   }, []);
 
   return (
