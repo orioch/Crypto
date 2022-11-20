@@ -1,5 +1,5 @@
 # CryptoPricing
-(I'm still working on creating this project, but you can access what I have made so far)
+(I'm still working on creating this project, but you can access what I have made so far, and look at the next [work items](https://github.com/orioch/CryptoPricing/issues) I am planning to do)
 ## Table of Contents
 
 - [Overview](#overview)
