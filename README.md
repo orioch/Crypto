@@ -13,6 +13,8 @@
 
 This project is a real-time pricing of cryptocurrencies made with ReactJS and powered by [CoinCap API 2.0](https://docs.coincap.io/).
 
+![screenshot](https://github.com/orioch/CryptoPricing/blob/main/Screen%20Shot%202022-11-20%20at%2012.28.54.png)
+
 ## Live Demo
 
 You can see a live demo of the project in [oriochayon.com/crypto](https://oriochayon.com/crypto)
